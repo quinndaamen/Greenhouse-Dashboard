@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sensor Data Graph</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta http-equiv="refresh" content="30">
+</head>
+<body>
+  <style>
+    body {
+      background-color: #E9F3EA;
+    }
+    
+    .button-class {
+            background: linear-gradient(135deg, #6BCB77, #4CAF50);
+            border: none;
+            color: white;
+            padding: 10px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .button-class:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #63b86f, #449d48);
+        }
+
+        .button-class:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+  </style>
+  
+  
+  
+  <div style="width: 80%; margin: auto;">
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <script>
+     
+    const sensorData = {{ data | tojson }};
+    sensorData.reverse();
+    const labels = sensorData.map(row => {
+    const date = new Date(row[0]);
+    return `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+    });
+
+    const tempData = sensorData.map(row => row[1]);
+    const humData = sensorData.map(row => row[2]);
+    const lightData = sensorData.map(row => row[3]);
+
+    const utemp = {{ uTemp }};
+    const uhum = {{ uHumidity }};
+
+    // Flat line arrays matching number of readings
+    const utempLine = Array(sensorData.length).fill(utemp);
+    const uhumLine = Array(sensorData.length).fill(uhum);
+
+
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Temperature (°C)',
+            data: tempData,
+            borderColor: 'red',
+            borderWidth: 2,
+            tension: 0.2
+          },
+          {
+            label: 'Humidity (%)',
+            data: humData,
+            borderColor: 'blue',
+            borderWidth: 2,
+            tension: 0.2
+          },
+          {
+            label: 'Light',
+            data: lightData,
+            borderColor: 'orange',
+            borderWidth: 2,
+            tension: 0.2
+          },
+          {
+          label: `Optimal Temperature (${utemp}°C)`,
+          data: Array(sensorData.length).fill(utemp),
+          borderColor: 'rgba(255, 0, 0, 0.4)',
+          borderDash: [6, 6],
+          borderWidth: 2,
+          pointRadius: 0,
+        },
+        {
+          label: `Optimal Humidity (${uhum}%)`,
+          data: Array(sensorData.length).fill(uhum),
+          borderColor: 'rgba(0, 0, 255, 0.4)',
+          borderDash: [6, 6],
+          borderWidth: 2,
+          pointRadius: 0,
+        }       
+        
+        
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top'
+          },
+          title: {
+            display: true,
+            text: 'Sensor Data Over Time'
+          }
+        },
+        scales: {
+          x: {
+            ticks: { maxRotation: 45, minRotation: 45 }
+          }
+        }
+      }
+    });
+  </script>
+
+<div class="controls">
+  <a href="/" class="button-class">Main Page</a>
+</div>
+
+</body>
+</html>
