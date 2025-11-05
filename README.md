@@ -15,7 +15,7 @@ This was my first project combining hardware, backend, and frontend development 
 ### Prototype
 - The initial prototype and interface design were created in Figma.
 
-![Prototype](Assets/Prototype.png) 
+![Prototype](assets/Prototype.png) 
   
 
 ### Concepts
