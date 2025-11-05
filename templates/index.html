@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard</title>
+    <meta http-equiv="refresh" content="5">
+    <link rel="icon" href="/images/tree.png" type="image/png"/>
+    <style>
+        body {
+            background-color: #E9F3EA;
+        }
+
+        h1 {
+            color: #000000;
+            text-align: center;
+            
+        }
+
+        .clock {
+            text-align: right;
+            font-size: xx-large;
+
+        }
+
+        .box {
+            margin-left: 20px;
+            background-color: #CFE8D7;
+            font-size: large;
+            color: #1B4332;
+            margin: 20px;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            font-size: 65px;
+            display: flex;              
+            align-items: center;        
+            justify-content: center;
+            border-radius: 15px;    
+        }
+        .diary {
+            background-color: #DCE6E1;
+            margin: 20px auto;
+            width: min(60%, 800px);
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            overflow: hidden;
+        }
+
+        .diaryentries {
+            color: #111;
+            font-size: 1rem;
+            flex: 1;
+            text-align: left;
+        }
+
+        
+
+        .healthbar {
+            background-color: #DCE6E1;
+            margin: 20px auto;
+            width: 500px;
+            height: 35px;
+            position: relative; 
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .health {
+            background: #{{ HealthColour }};
+            color: black;
+            width: {{ score }}%; 
+            height: 100%;
+            text-align: center;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .button-class {
+            background: linear-gradient(135deg, #6BCB77, #4CAF50);
+            border: none;
+            color: white;
+            padding: 10px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .button-class:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #63b86f, #449d48);
+        }
+
+        .button-class:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            }
+
+        </style>
+</head>
+<body>
+    <div>
+        <div style="display: flex; align-items: center; width: 100%; justify-content: center; position: relative;">
+            <h1 style="margin: 0; text-align: center;">Dashboard</h1>
+            <div class="clock" style="font-size: xx-large; position: absolute; right: 20px;">
+                <strong>{{ formatted }}</strong>
+            </div>
+        </div>
+
+
+
+        <div class="healthbar">
+            <div class="health"><strong>{{ score }}</strong></div>
+        </div>
+        <div class="box"><strong>{{ aTemp }}C</strong></div>
+        <div class="box"><strong>{{ aHumidity }}%</strong></div>
+        <div class="box"><strong>{{ aLight }}lux</strong></div>
+    </div>
+    <div class="diary">
+        <div class="diaryentries">{{ TempDiaryEntry }}, {{ HumDiaryEntry }}</div>
+    </div>
+
+    <div class="controls">
+        <a href="/settings" class="button-class">Settings</a>
+        <a href="/graph" class="button-class" style="margin-left: 40px;">Graph</a>
+    </div>
+</body>
+</html>
