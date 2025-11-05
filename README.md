@@ -51,4 +51,4 @@ Python | MySQL | Arduino | Flask | HTML | CSS
 
 
 ### Screenshots / Demo
-![Main](Assets/Menu.png) 
+![Main](Assets/Main.png) 
